@@ -1,0 +1,26 @@
+# Étape 1 : Construction
+FROM node:20.17-slim
+
+# Définir le répertoire de travail
+WORKDIR /app
+
+#Copier les fichiers nécessaires pour installer les dépendances
+COPY ./app/package*.json ./
+COPY ./app/tsconfig.json ./
+COPY ./app/tsconfig.app.json ./
+COPY ./app/tsconfig.node.json ./
+COPY ./app/vite.config.ts ./
+COPY ./app/postcss.config.mjs ./
+
+# Installer les dépendances
+RUN npm install
+
+# Copier le reste du projet
+COPY ./app ./
+
+# Activer le hot reload en Docker
+ENV CHOKIDAR_USEPOLLING=true
+ENV HOST=0.0.0.0
+
+# Exécuter Vite en mode développement
+CMD ["npm", "run", "dev"]
