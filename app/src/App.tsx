@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import Metiers from './pages/Metiers';
+import Installations from './pages/Installations';
 const AppContent: React.FC = () => {
 
     return (
@@ -11,7 +12,8 @@ const AppContent: React.FC = () => {
             <Routes>
                 {<Route path='/' element={<Home />} /> }
                 {<Route path='/metiers' element={<Metiers />} /> }
-
+                {<Route path="/installations" element={<Installations />} />
+}
             </Routes>
         </>
     );
