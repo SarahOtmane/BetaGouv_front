@@ -41,7 +41,13 @@ const Metiers: React.FC = () => {
     </div>
   </div>
 
-  <FilAriane />
+  <FilAriane
+    items={[
+        { label: 'Mon Lycée', href: '#' },
+        { label: "Carte d'identité du lycée" }
+    ]}
+    />
+
 
   <div className="fr-grid-row fr-grid-row--gutters fr-mt-5w">
     {/* Colonne gauche */}
