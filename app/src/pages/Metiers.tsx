@@ -32,40 +32,44 @@ const Metiers: React.FC = () => {
 
   return (
     <div className="fr-container fr-mt-5w">
-  <div className="fr-grid-row fr-grid-row--between fr-mb-3w">
-    <div className="fr-col-12 fr-col-md-6">
-      <h1 className="fr-h2">Je valorise mon lycée</h1>
-    </div>
-    <div className="fr-col-12 fr-col-md-6 fr-text--right">
-      <HeaderMenu />
-    </div>
-  </div>
+      <div className="fr-grid-row fr-grid-row--between fr-mb-3w">
+        <div className="fr-col-12 fr-col-md-6">
+          <h1 className="fr-h2">Je valorise mon lycée</h1>
+        </div>
+        <div className="fr-col-12 fr-col-md-6 fr-text--right">
+          <HeaderMenu />
+        </div>
+      </div>
 
-  <FilAriane />
-
-  <div className="fr-grid-row fr-grid-row--gutters fr-mt-5w">
-    {/* Colonne gauche */}
-    <div className="fr-col-12 fr-col-md-6">
-      <h2 className="fr-h4">Métiers sélectionnés</h2>
-      <ListeMetiers metiers={metiers} />
-
-      <h2 className="fr-h4 fr-mt-4w">Ajouter un métier</h2>
-      <SelectMetier options={optionsMetiers} onAddMetier={handleAddMetier} />
-    </div>
-
-    {/* Colonne droite */}
-    <div className="fr-col-12 fr-col-md-6">
-      <InfosGenerales
-        nom="Lycée Jean Moulin"
-        adresse="15 rue de la Liberté, 75010 Paris"
-        siteWeb="https://www.lycee-jean-moulin.fr"
-        logoUrl="https://upload.wikimedia.org/wikipedia/commons/6/6e/Logo-academie-paris.svg"
+      <FilAriane
+        items={[
+          { label: 'Mon Lycée', href: '#' },
+          { label: "Carte d'identité du lycée" },
+        ]}
       />
-      <ChiffresCles donnees={chiffres} />
-    </div>
-  </div>
-</div>
 
+      <div className="fr-grid-row fr-grid-row--gutters fr-mt-5w">
+        {/* Colonne gauche */}
+        <div className="fr-col-12 fr-col-md-6">
+          <h2 className="fr-h4">Métiers sélectionnés</h2>
+          <ListeMetiers metiers={metiers} />
+
+          <h2 className="fr-h4 fr-mt-4w">Ajouter un métier</h2>
+          <SelectMetier options={optionsMetiers} onAddMetier={handleAddMetier} />
+        </div>
+
+        {/* Colonne droite */}
+        <div className="fr-col-12 fr-col-md-6">
+          <InfosGenerales
+            nom="Lycée Jean Moulin"
+            adresse="15 rue de la Liberté, 75010 Paris"
+            siteWeb="https://www.lycee-jean-moulin.fr"
+            logoUrl="https://upload.wikimedia.org/wikipedia/commons/6/6e/Logo-academie-paris.svg"
+          />
+          <ChiffresCles donnees={chiffres} />
+        </div>
+      </div>
+    </div>
   );
 };
 
