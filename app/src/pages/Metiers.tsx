@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import HeaderMenu from '../components/HeaderMenu';
-import FilAriane from '../components/FilAriane';
-import SelectMetier from '../components/SelectMetier';
-import ListeMetiers from '../components/ListeMetiers';
-import InfosGenerales from '../components/InfosGenerales';
-import ChiffresCles from '../components/ChiffresCles';
+import HeaderMenu from '../components/metierscomponents/HeaderMenu';
+import FilAriane from '../components/metierscomponents/FilAriane';
+import SelectMetier from '../components/metierscomponents/SelectMetier';
+import ListeMetiers from '../components/metierscomponents/ListeMetiers';
+import InfosGenerales from '../components/metierscomponents/InfosGenerales';
+import ChiffresCles from '../components/metierscomponents/ChiffresCles';
 
 const optionsMetiers = [
   'Hôtellerie Restauration',
