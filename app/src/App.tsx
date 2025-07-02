@@ -7,7 +7,8 @@ import Metiers from './pages/Metiers';
 import Installations from './pages/Installations';
 import Actions from './pages/Actions';
 import Portraits from './pages/Portraits';
-import Auth from './pages/Auth';
+import AuthEntreprise from './pages/AuthEntreprise';
+import AuthLycee from './pages/AuthLycee';
 import IdentifierMetiers from './pages/IdentifierMétiers';
 import Distance from './pages/Distance';
 import Activities from './pages/Activities';
@@ -25,11 +26,11 @@ const AppContent: React.FC = () => {
                 {<Route path="/installations" element={<Installations />}/>}
                 {<Route path="/actions" element={<Actions />}/>}
                 {<Route path="/portraits" element={<Portraits />}/>}
-                {<Route path="/auth" element={<Auth />}/>}
+                {<Route path="/auth_entreprise" element={<AuthEntreprise />}/>}
+                {<Route path="/auth_lycee" element={<AuthLycee />} />}
                 {<Route path="/identifiermetiers" element={<IdentifierMetiers />} />}
                 {<Route path="/distance" element={<Distance />} />}
                 {<Route path="/activities" element={<Activities />} />}
-                {<Route path="/activities/affiner" element={<RefineContact />} />}
                 {<Route path="/activities/affiner" element={<RefineContact />} />}
                 {<Route path="/backoffice" element={<Backoffice />} />}
                 {<Route path="/backoffice/proposer-projet" element={<ProposerProjet />} />}
