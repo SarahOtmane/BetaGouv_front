@@ -12,6 +12,9 @@ import IdentifierMetiers from './pages/IdentifierMétiers';
 import Distance from './pages/Distance';
 import Activities from './pages/Activities';
 import RefineContact from './pages/RefineContact';
+import Backoffice from './pages/Backoffice';
+import ProposerProjet from './pages/ProposerProjet';
+import DemandeDetails from './pages/DemandeDetails';
 const AppContent: React.FC = () => {
 
     return (
@@ -27,8 +30,10 @@ const AppContent: React.FC = () => {
                 {<Route path="/distance" element={<Distance />} />}
                 {<Route path="/activities" element={<Activities />} />}
                 {<Route path="/activities/affiner" element={<RefineContact />} />}
-
-
+                {<Route path="/activities/affiner" element={<RefineContact />} />}
+                {<Route path="/backoffice" element={<Backoffice />} />}
+                {<Route path="/backoffice/proposer-projet" element={<ProposerProjet />} />}
+                {<Route path="/backoffice/demande/:id" element={<DemandeDetails />} />}
             </Routes>
         </>
     );
