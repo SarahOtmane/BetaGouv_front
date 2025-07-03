@@ -1,6 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
-const InscriptionForm: React.FC = () => {
+interface Props {
+  role: 'entreprise' | 'lycee';
+}
+
+const InscriptionForm: React.FC<Props> = ({ role }) => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    phone_number: '',
+    name: '',
+    rue: '',
+    code_postal: '',
+    ville: '',
+    pays: '',
+    SIRET: '',
+    activite_principale: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSIRETChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const siret = e.target.value;
+    setFormData({ ...formData, SIRET: siret });
+
+    if (siret.length === 14) {
+      try {
+        const res = await axios.get(`/api/siret/${siret}`);
+        const data = res.data;
+        setFormData((prev) => ({
+          ...prev,
+          name: data.name || '',
+          activite_principale: data.activite_principale || '',
+          rue: data.rue || '',
+          code_postal: data.code_postal || '',
+          ville: data.ville || '',
+          pays: data.pays || '',
+        }));
+      } catch (err) {
+        console.error('Erreur SIRET :', err);
+      }
+    }
+  };
+
   return (
     <main role="main" id="content">
       {/* Intro */}
@@ -8,9 +53,7 @@ const InscriptionForm: React.FC = () => {
         <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
           <div className="fr-col-12 fr-col-md-10 fr-col-lg-8">
             <h1 className="fr-h2">Création de compte sur Mon Service</h1>
-            <p className="fr-text--lead">
-              Chapô — Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tortor nibh, sit amet tempor nibh finibus et.
-            </p>
+            <p className="fr-text--lead">Créer votre compte pour accéder au service</p>
           </div>
         </div>
       </div>
@@ -26,21 +69,14 @@ const InscriptionForm: React.FC = () => {
                   {/* FranceConnect */}
                   <div className="fr-mb-6v">
                     <h2 className="fr-h5">Se créer un compte avec FranceConnect</h2>
-                    <p className="fr-text--sm">
-                      FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la connexion aux services en ligne.
-                    </p>
+                    <p className="fr-text--sm">FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la connexion aux services en ligne.</p>
                     <div className="fr-connect-group">
                       <button className="fr-connect" type="button">
                         <span className="fr-connect__login">S’identifier avec</span>
                         <span className="fr-connect__brand">FranceConnect</span>
                       </button>
                       <p>
-                        <a
-                          href="https://franceconnect.gouv.fr/"
-                          target="_blank"
-                          rel="noopener"
-                          title="Qu’est-ce que FranceConnect ? - nouvelle fenêtre"
-                        >
+                        <a href="https://franceconnect.gouv.fr/" target="_blank" rel="noopener">
                           Qu’est-ce que FranceConnect ?
                         </a>
                       </p>
@@ -50,111 +86,78 @@ const InscriptionForm: React.FC = () => {
                   <p className="fr-hr-or">ou</p>
 
                   {/* Formulaire d’inscription */}
-                  <form className="fr-mb-0 fr-fieldset" id="login-9484">
-                    <fieldset
-                      className="fr-mb-0 fr-fieldset"
-                      id="login-9484-fieldset"
-                      aria-labelledby="login-9484-fieldset-legend login-9484-fieldset-messages"
-                    >
-                      <legend className="fr-fieldset__legend" id="login-9484-fieldset-legend">
+                  <form className="fr-mb-0 fr-fieldset">
+                    <fieldset className="fr-fieldset">
+                      <legend className="fr-fieldset__legend">
                         <h2 className="fr-h5">Se créer un compte en choisissant un identifiant</h2>
                       </legend>
 
-                      <div className="fr-fieldset__element">
-                        <p className="fr-text--sm">
-                          Description — Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        </p>
-                      </div>
-                      <div className="fr-fieldset__element">
-                        <p className="fr-hint-text">
-                          Sauf mention contraire, tous les champs sont obligatoires.
-                        </p>
-                      </div>
-
                       {/* Email */}
                       <div className="fr-fieldset__element">
-                        <div className="fr-input-group" id="input-group-9488">
-                          <label className="fr-label" htmlFor="username-9480">
-                            Identifiant
-                            <span className="fr-hint-text">Format attendu : nom@domaine.fr</span>
-                          </label>
-                          <input
-                            className="fr-input"
-                            id="username-9480"
-                            name="username"
-                            type="email"
-                            autoCapitalize="off"
-                            autoCorrect="off"
-                            required
-                          />
-                          <div className="fr-messages-group" id="username-9480-messages" aria-live="polite" />
-                        </div>
+                        <label className="fr-label" htmlFor="email">Email</label>
+                        <input className="fr-input" type="email" name="email" id="email" value={formData.email} onChange={handleChange} required />
                       </div>
 
                       {/* Mot de passe */}
                       <div className="fr-fieldset__element">
-                        <div className="fr-password" id="password-9481">
-                          <label className="fr-password__label fr-label" htmlFor="password-9481-input">
-                            Mot de passe
-                          </label>
-                          <div className="fr-input-wrap">
-                            <input
-                              className="fr-password__input fr-input"
-                              id="password-9481-input"
-                              name="password"
-                              type="password"
-                              autoCapitalize="off"
-                              autoCorrect="off"
-                              autoComplete="new-password"
-                              required
-                            />
-                          </div>
-                          <div className="fr-messages-group" id="password-9481-input-messages" aria-live="polite">
-                            <p className="fr-message">Votre mot de passe doit contenir :</p>
-                            <p className="fr-message fr-message--info">12 caractères minimum</p>
-                            <p className="fr-message fr-message--info">1 caractère spécial minimum</p>
-                            <p className="fr-message fr-message--info">1 chiffre minimum</p>
-                          </div>
-                          <div className="fr-password__checkbox fr-checkbox-group fr-checkbox-group--sm">
-                            <input type="checkbox" id="password-9481-show" />
-                            <label className="fr-label" htmlFor="password-9481-show">
-                              Afficher
-                            </label>
-                          </div>
-                        </div>
+                        <label className="fr-label" htmlFor="password">Mot de passe</label>
+                        <input className="fr-input" type="password" name="password" id="password" value={formData.password} onChange={handleChange} required />
                       </div>
 
-                      {/* CNIL mentions */}
+                      {/* Téléphone */}
                       <div className="fr-fieldset__element">
-                        <div className="fr-checkbox-group fr-checkbox-group--sm">
-                          <input id="checkbox-cnil-9482" type="checkbox" required />
-                          <label className="fr-label" htmlFor="checkbox-cnil-9482">
-                            Mention CNIL — Lorem ipsum dolor sit amet, consectetur adipiscing est
-                          </label>
-                          <div className="fr-messages-group" id="checkbox-cnil-9482-messages" aria-live="polite" />
-                        </div>
+                        <label className="fr-label" htmlFor="phone_number">Téléphone</label>
+                        <input className="fr-input" type="tel" name="phone_number" id="phone_number" value={formData.phone_number} onChange={handleChange} required />
                       </div>
 
+                      {/* SIRET */}
                       <div className="fr-fieldset__element">
-                        <div className="fr-checkbox-group fr-checkbox-group--sm">
-                          <input id="checkbox-cnil-9483" type="checkbox" />
-                          <label className="fr-label" htmlFor="checkbox-cnil-9483">
-                            Mention CNIL — Lorem ipsum dolor sit amet, consectetur adipiscing est
-                          </label>
-                          <div className="fr-messages-group" id="checkbox-cnil-9483-messages" aria-live="polite" />
-                        </div>
+                        <label className="fr-label" htmlFor="SIRET">SIRET</label>
+                        <input className="fr-input" name="SIRET" id="SIRET" value={formData.SIRET} onChange={handleSIRETChange} required />
                       </div>
+
+                      {/* Nom */}
+                      <div className="fr-fieldset__element">
+                        <label className="fr-label" htmlFor="name">Nom</label>
+                        <input className="fr-input" name="name" id="name" value={formData.name} onChange={handleChange} required />
+                      </div>
+
+                      {/* Rue */}
+                      <div className="fr-fieldset__element">
+                        <label className="fr-label" htmlFor="rue">Rue</label>
+                        <input className="fr-input" name="rue" id="rue" value={formData.rue} onChange={handleChange} required />
+                      </div>
+
+                      {/* Code postal */}
+                      <div className="fr-fieldset__element">
+                        <label className="fr-label" htmlFor="code_postal">Code postal</label>
+                        <input className="fr-input" name="code_postal" id="code_postal" value={formData.code_postal} onChange={handleChange} required />
+                      </div>
+
+                      {/* Ville */}
+                      <div className="fr-fieldset__element">
+                        <label className="fr-label" htmlFor="ville">Ville</label>
+                        <input className="fr-input" name="ville" id="ville" value={formData.ville} onChange={handleChange} required />
+                      </div>
+
+                      {/* Pays */}
+                      <div className="fr-fieldset__element">
+                        <label className="fr-label" htmlFor="pays">Pays</label>
+                        <input className="fr-input" name="pays" id="pays" value={formData.pays} onChange={handleChange} required />
+                      </div>
+
+                      {/* Activité principale – seulement pour entreprise */}
+                      {role === 'entreprise' && (
+                        <div className="fr-fieldset__element">
+                          <label className="fr-label" htmlFor="activite_principale">Activité principale</label>
+                          <input className="fr-input" name="activite_principale" id="activite_principale" value={formData.activite_principale} onChange={handleChange} />
+                        </div>
+                      )}
 
                       {/* Bouton */}
                       <div className="fr-fieldset__element">
-                        <ul className="fr-mt-2v fr-btns-group fr-btns-group--right fr-btns-group--inline-reverse fr-btns-group--inline-sm">
-                          <li>
-                            <button type="submit" className="fr-btn">Valider</button>
-                          </li>
-                        </ul>
+                        <button type="submit" className="fr-btn">Valider</button>
                       </div>
-
-                      <div className="fr-messages-group" id="login-9484-fieldset-messages" aria-live="polite" />
                     </fieldset>
                   </form>
 
