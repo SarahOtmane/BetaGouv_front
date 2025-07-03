@@ -1,12 +1,25 @@
-// src/components/layout/Header.tsx
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface HeaderProps {
   children?: React.ReactNode;
 }
 
 const Header: React.FC<HeaderProps> = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    navigate('/'); // redirection après déconnexion, modifie si besoin
+  };
+
   return (
     <header role="banner" className="fr-header">
       <div className="fr-header__body">
@@ -56,21 +69,29 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
             <div className="fr-header__tools">
               <div className="fr-header__tools-links">
                 <ul className="fr-btns-group">
-                  <li>
-                    <a href="#" className="fr-btn fr-btn--team">
-                      Contact
-                    </a>
-                  </li>
-                  <li>
-                    <Link to="/auth_lycee" className="fr-btn fr-btn--briefcase">
-                      Espace lycée
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/auth_entreprise" className="fr-btn fr-btn--account">
-                      Espace entreprise
-                    </Link>
-                  </li>
+                  {!isLoggedIn ? (
+                    <>
+                      <li>
+                        <Link to="/auth_lycee" className="fr-btn fr-btn--briefcase">
+                          Espace lycée
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/auth_entreprise" className="fr-btn fr-btn--account">
+                          Espace entreprise
+                        </Link>
+                      </li>
+                    </>
+                  ) : (
+                    <li>
+                      <button
+                        className="fr-btn fr-btn--secondary"
+                        onClick={handleLogout}
+                      >
+                        Déconnexion
+                      </button>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>
