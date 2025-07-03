@@ -1,12 +1,29 @@
+// src/components/identifierMetiers/SiretForm.tsx
 import React, { useState } from 'react';
+import { fetchEntrepriseBySiret } from '../../services/api';
 
-const SiretForm: React.FC = () => {
+interface SiretFormProps {
+  onSearch: (data: any) => void;
+  onError: (error: string) => void;
+}
+
+const SiretForm: React.FC<SiretFormProps> = ({ onSearch, onError }) => {
   const [siret, setSiret] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Recherche pour SIRET :', siret);
-    // Rediriger ou requête API ici
+    setIsLoading(true);
+    
+    try {
+      const cleanedSiret = siret.replace(/\s/g, '');
+      const entrepriseData = await fetchEntrepriseBySiret(cleanedSiret);
+      onSearch(entrepriseData);
+    } catch (error) {
+      onError(error instanceof Error ? error.message : 'Une erreur inconnue est survenue');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -22,10 +39,13 @@ const SiretForm: React.FC = () => {
           value={siret}
           onChange={(e) => setSiret(e.target.value)}
           required
+          pattern="\d{14}"
+          title="Le SIRET doit contenir 14 chiffres"
+          placeholder="12345678901234"
         />
       </div>
-      <button className="fr-btn" type="submit">
-        Trouver les lycées pro qui me correspondent
+      <button className="fr-btn" type="submit" disabled={isLoading}>
+        {isLoading ? 'Recherche en cours...' : 'Trouver les lycées pro qui me correspondent'}
       </button>
     </form>
   );
