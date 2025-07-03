@@ -16,6 +16,7 @@ import RefineContact from './pages/RefineContact';
 import Backoffice from './pages/Backoffice';
 import ProposerProjet from './pages/ProposerProjet';
 import DemandeDetails from './pages/DemandeDetails';
+import AjouterImages from './pages/AjouterImages';
 const AppContent: React.FC = () => {
 
     return (
@@ -35,6 +36,8 @@ const AppContent: React.FC = () => {
                 {<Route path="/backoffice" element={<Backoffice />} />}
                 {<Route path="/backoffice/proposer-projet" element={<ProposerProjet />} />}
                 {<Route path="/backoffice/demande/:id" element={<DemandeDetails />} />}
+                {<Route path="/add_images" element={<AjouterImages />} />}
+
             </Routes>
         </>
     );
