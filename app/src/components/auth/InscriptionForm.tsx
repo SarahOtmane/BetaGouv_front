@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import axios from '../../utils/axiosConfig'; // utilise ton axios configuré
 
 interface Props {
-  role: 'entreprise' | 'lycee';
+  role: 'company' | 'school';
 }
 
 const InscriptionForm: React.FC<Props> = ({ role }) => {
@@ -18,6 +19,8 @@ const InscriptionForm: React.FC<Props> = ({ role }) => {
     SIRET: '',
     activite_principale: '',
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -46,6 +49,25 @@ const InscriptionForm: React.FC<Props> = ({ role }) => {
     }
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      await axios.post('/register', { ...formData, role });
+      alert('Inscription réussie ! Vous pouvez maintenant vous connecter.');
+
+      // Redirection selon le rôle
+      if (role === 'school') {
+        navigate('/auth_lycee');
+      } else {
+        navigate('/auth_entreprise');
+      }
+    } catch (err: any) {
+      console.error('Erreur inscription :', err.response?.data || err.message);
+      alert(err.response?.data?.message || 'Erreur lors de l’inscription');
+    }
+  };
+
   return (
     <main role="main" id="content">
       {/* Intro */}
@@ -65,11 +87,13 @@ const InscriptionForm: React.FC<Props> = ({ role }) => {
             <div className="fr-background-alt--grey fr-px-md-0 fr-pt-10v fr-pt-md-14v fr-pb-6v fr-pb-md-10v">
               <div className="fr-grid-row fr-grid-row--gutters fr-grid-row--center">
                 <div className="fr-col-12 fr-col-md-10 fr-col-lg-9">
-                  
+
                   {/* FranceConnect */}
                   <div className="fr-mb-6v">
                     <h2 className="fr-h5">Se créer un compte avec FranceConnect</h2>
-                    <p className="fr-text--sm">FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la connexion aux services en ligne.</p>
+                    <p className="fr-text--sm">
+                      FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la connexion aux services en ligne.
+                    </p>
                     <div className="fr-connect-group">
                       <button className="fr-connect" type="button">
                         <span className="fr-connect__login">S’identifier avec</span>
@@ -86,75 +110,65 @@ const InscriptionForm: React.FC<Props> = ({ role }) => {
                   <p className="fr-hr-or">ou</p>
 
                   {/* Formulaire d’inscription */}
-                  <form className="fr-mb-0 fr-fieldset">
+                  <form className="fr-mb-0 fr-fieldset" onSubmit={handleSubmit}>
                     <fieldset className="fr-fieldset">
                       <legend className="fr-fieldset__legend">
                         <h2 className="fr-h5">Se créer un compte en choisissant un identifiant</h2>
                       </legend>
 
-                      {/* Email */}
+                      {/* Tous les inputs inchangés */}
                       <div className="fr-fieldset__element">
                         <label className="fr-label" htmlFor="email">Email</label>
                         <input className="fr-input" type="email" name="email" id="email" value={formData.email} onChange={handleChange} required />
                       </div>
 
-                      {/* Mot de passe */}
                       <div className="fr-fieldset__element">
                         <label className="fr-label" htmlFor="password">Mot de passe</label>
                         <input className="fr-input" type="password" name="password" id="password" value={formData.password} onChange={handleChange} required />
                       </div>
 
-                      {/* Téléphone */}
                       <div className="fr-fieldset__element">
                         <label className="fr-label" htmlFor="phone_number">Téléphone</label>
                         <input className="fr-input" type="tel" name="phone_number" id="phone_number" value={formData.phone_number} onChange={handleChange} required />
                       </div>
 
-                      {/* SIRET */}
                       <div className="fr-fieldset__element">
                         <label className="fr-label" htmlFor="SIRET">SIRET</label>
                         <input className="fr-input" name="SIRET" id="SIRET" value={formData.SIRET} onChange={handleSIRETChange} required />
                       </div>
 
-                      {/* Nom */}
                       <div className="fr-fieldset__element">
                         <label className="fr-label" htmlFor="name">Nom</label>
                         <input className="fr-input" name="name" id="name" value={formData.name} onChange={handleChange} required />
                       </div>
 
-                      {/* Rue */}
                       <div className="fr-fieldset__element">
                         <label className="fr-label" htmlFor="rue">Rue</label>
                         <input className="fr-input" name="rue" id="rue" value={formData.rue} onChange={handleChange} required />
                       </div>
 
-                      {/* Code postal */}
                       <div className="fr-fieldset__element">
                         <label className="fr-label" htmlFor="code_postal">Code postal</label>
                         <input className="fr-input" name="code_postal" id="code_postal" value={formData.code_postal} onChange={handleChange} required />
                       </div>
 
-                      {/* Ville */}
                       <div className="fr-fieldset__element">
                         <label className="fr-label" htmlFor="ville">Ville</label>
                         <input className="fr-input" name="ville" id="ville" value={formData.ville} onChange={handleChange} required />
                       </div>
 
-                      {/* Pays */}
                       <div className="fr-fieldset__element">
                         <label className="fr-label" htmlFor="pays">Pays</label>
                         <input className="fr-input" name="pays" id="pays" value={formData.pays} onChange={handleChange} required />
                       </div>
 
-                      {/* Activité principale – seulement pour entreprise */}
-                      {role === 'entreprise' && (
+                      {role === 'company' && (
                         <div className="fr-fieldset__element">
                           <label className="fr-label" htmlFor="activite_principale">Activité principale</label>
                           <input className="fr-input" name="activite_principale" id="activite_principale" value={formData.activite_principale} onChange={handleChange} />
                         </div>
                       )}
 
-                      {/* Bouton */}
                       <div className="fr-fieldset__element">
                         <button type="submit" className="fr-btn">Valider</button>
                       </div>

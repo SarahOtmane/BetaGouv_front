@@ -41,7 +41,7 @@ const AuthEntreprise: React.FC = () => {
       {tab === 'connexion' ? (
         <ConnexionForm />
       ) : (
-        <InscriptionForm role="entreprise" />
+        <InscriptionForm role="company" />
       )}
 
       <Footer />
