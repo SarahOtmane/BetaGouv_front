@@ -41,7 +41,7 @@ const AuthLycee: React.FC = () => {
       {tab === 'connexion' ? (
         <ConnexionForm />
       ) : (
-        <InscriptionForm role="lycee" />
+        <InscriptionForm role="school" />
       )}
 
       <Footer />
