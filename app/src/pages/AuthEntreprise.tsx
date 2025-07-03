@@ -11,7 +11,6 @@ const AuthEntreprise: React.FC = () => {
     <>
       <Header />
 
-      {/* Onglets sans wrapper supplémentaire */}
       <div className="fr-container fr-mt-8v">
         <div className="fr-grid-row fr-grid-row--center">
           <div className="fr-col-12 fr-col-md-10 fr-col-lg-8">
@@ -39,8 +38,11 @@ const AuthEntreprise: React.FC = () => {
         </div>
       </div>
 
-      {/* Formulaires directement rendus, avec leur propre structure */}
-      {tab === 'connexion' ? <ConnexionForm /> : <InscriptionForm />}
+      {tab === 'connexion' ? (
+        <ConnexionForm />
+      ) : (
+        <InscriptionForm role="entreprise" />
+      )}
 
       <Footer />
     </>
