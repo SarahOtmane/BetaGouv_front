@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
                   title="Accueil - Nom du site / service - Nom de l’entité"
                 >
                   <p className="fr-header__service-title">
-                    Nom du site / service
+                    LYCEE PRO
                   </p>
                 </Link>
                 <p className="fr-header__service-tagline">
