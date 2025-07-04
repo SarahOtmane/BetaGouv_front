@@ -17,9 +17,9 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
               <div className="fr-header__brand-top">
                 <div className="fr-header__logo">
                   <p className="fr-logo">
-                    Intitulé
+                    Stage 
                     <br />
-                    officiel
+                    connect
                   </p>
                 </div>
 
@@ -43,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
                   title="Accueil - Nom du site / service - Nom de l’entité"
                 >
                   <p className="fr-header__service-title">
-                    Nom du site / service
+                    Stage connect
                   </p>
                 </Link>
                 <p className="fr-header__service-tagline">

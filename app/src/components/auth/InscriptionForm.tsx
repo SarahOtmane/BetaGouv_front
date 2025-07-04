@@ -9,7 +9,7 @@ const InscriptionForm: React.FC = () => {
           <div className="fr-col-12 fr-col-md-10 fr-col-lg-8">
             <h1 className="fr-h2">Création de compte sur Mon Service</h1>
             <p className="fr-text--lead">
-              Chapô — Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tortor nibh, sit amet tempor nibh finibus et.
+  
             </p>
           </div>
         </div>
@@ -62,7 +62,7 @@ const InscriptionForm: React.FC = () => {
 
                       <div className="fr-fieldset__element">
                         <p className="fr-text--sm">
-                          Description — Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                          Description — 
                         </p>
                       </div>
                       <div className="fr-fieldset__element">
@@ -129,7 +129,7 @@ const InscriptionForm: React.FC = () => {
                         <div className="fr-checkbox-group fr-checkbox-group--sm">
                           <input id="checkbox-cnil-9482" type="checkbox" required />
                           <label className="fr-label" htmlFor="checkbox-cnil-9482">
-                            Mention CNIL — Lorem ipsum dolor sit amet, consectetur adipiscing est
+                            Mention CNIL — 
                           </label>
                           <div className="fr-messages-group" id="checkbox-cnil-9482-messages" aria-live="polite" />
                         </div>
@@ -139,7 +139,7 @@ const InscriptionForm: React.FC = () => {
                         <div className="fr-checkbox-group fr-checkbox-group--sm">
                           <input id="checkbox-cnil-9483" type="checkbox" />
                           <label className="fr-label" htmlFor="checkbox-cnil-9483">
-                            Mention CNIL — Lorem ipsum dolor sit amet, consectetur adipiscing est
+                            Mention CNIL — 
                           </label>
                           <div className="fr-messages-group" id="checkbox-cnil-9483-messages" aria-live="polite" />
                         </div>

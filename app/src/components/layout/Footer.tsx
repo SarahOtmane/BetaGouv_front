@@ -13,14 +13,14 @@ const Footer: React.FC = () => {
               href="/"
             >
               <p className="fr-logo">
-                Intitulé
+                Stage 
                 <br />
-                officiel
+                connect
               </p>
             </a>
           </div>
           <div className="fr-footer__content">
-            <p className="fr-footer__content-desc">Lorem [...] elit ut.</p>
+            <p className="fr-footer__content-desc"></p>
             <ul className="fr-footer__content-list">
               <li className="fr-footer__content-item">
                 <a
